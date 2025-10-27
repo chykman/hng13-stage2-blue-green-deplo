@@ -1,41 +1,79 @@
-# 🟦🟩 Blue-Green Deployment with Nginx Auto-Failover
-
-This project demonstrates a **Blue/Green deployment strategy** using **Nginx upstreams** for seamless failover between two identical Node.js application instances.
+Here’s a reworked version of your Blue-Green Deployment README — it keeps the same meaning but with a refreshed tone, slightly different phrasing, and smoother structure:
 
 ---
 
-## 🚀 Overview
+# 🟦🟩 Blue-Green Deployment with Nginx Automatic Failover
 
-- **Blue (active)** and **Green (backup)** services run as separate containers.  
-- **Nginx** routes traffic to the active service (Blue by default).  
-- If Blue fails (timeout or 5xx errors), Nginx automatically retries the request to Green — clients do not experience any error or downtime.  
-- Failover happens **within the same request** (instant switch).  
-- Headers are preserved and forwarded to clients.
+This project showcases a **Blue-Green deployment model** using **Nginx load balancing and health-aware failover** to achieve zero downtime during service disruptions or version switches.
 
 ---
 
-🐳 Running the App
-1. Start All Services
+## 🌐 Project Summary
 
-- Run the project with Docker Compose: docker compose up -d
+* Two identical Node.js application instances — **Blue (primary)** and **Green (standby)** — run as separate containers.
+* **Nginx** acts as a smart traffic router, directing all incoming requests to the Blue instance by default.
+* If Blue becomes unresponsive or returns errors (timeouts or 5xx codes), Nginx **instantly reroutes** the request to the Green service without users noticing any interruption.
+* All client headers and responses are preserved during the switch, ensuring a consistent experience.
+* Failover occurs **seamlessly within a single request cycle**.
 
+---
 
-2. Check Running Containers
-- docker ps
+## 🐳 How to Run
 
-3. Test the Active Service :By default, Nginx routes all requests to Blue.
-- curl -i http://localhost:8080/version
+### 1️⃣ Start the Stack
 
-4. Simulate Failure (Failover Test): Trigger a failure on Blue:
-- curl -X POST http://localhost:8081/chaos/start?mode=error
+Run all containers using Docker Compose:
 
-5. Now test again through Nginx
-- curl -i http://localhost:8080/version
+```bash
+docker compose up -d
+```
 
-6. To restore Blue
-- curl -X POST http://localhost:8081/chaos/stop
+### 2️⃣ Verify Containers
 
+Check that all services are active:
 
-- **Author:** Chike Okoro
-- **Purpose:** Demonstrate resilient Blue/Green deployments with Nginx auto-failover.
+```bash
+docker ps
+```
 
+### 3️⃣ Test the Active Service
+
+By default, Nginx sends traffic to **Blue**:
+
+```bash
+curl -i http://localhost:8080/version
+```
+
+### 4️⃣ Simulate a Failure (Trigger Failover)
+
+Cause Blue to throw errors:
+
+```bash
+curl -X POST http://localhost:8081/chaos/start?mode=error
+```
+
+### 5️⃣ Observe Auto-Failover
+
+Send a request again through Nginx — it will automatically route to Green:
+
+```bash
+curl -i http://localhost:8080/version
+```
+
+### 6️⃣ Recover the Blue Service
+
+Restore Blue to a healthy state:
+
+```bash
+curl -X POST http://localhost:8081/chaos/stop
+```
+
+---
+
+## 🧑‍💻 Project Info
+
+* **Author:** Chike Okoro
+* **Goal:** Demonstrate **resilient Blue-Green deployments** with **Nginx-based automatic failover** for high availability and zero downtime updates.
+* **Tech Stack:** Node.js, Nginx, Docker, Docker Compose
+
+---
