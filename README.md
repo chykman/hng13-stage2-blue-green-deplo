@@ -36,6 +36,6 @@ This project demonstrates a **Blue/Green deployment strategy** using **Nginx ups
 - curl -X POST http://localhost:8081/chaos/stop
 
 
-- **Author:** Macdonald Daniel
+- **Author:** Chike Okoro
 - **Purpose:** Demonstrate resilient Blue/Green deployments with Nginx auto-failover.
 

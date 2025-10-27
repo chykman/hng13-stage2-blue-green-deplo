@@ -55,6 +55,6 @@ It’s a clean, minimal approach that still demonstrates real-world Blue/Green a
 
 ---
 
-**Author:** Macdonald Daniel  
+**Author:** Chike Okoro
 **Date:** October 2025  
 **Purpose:** Document the reasoning behind the design choices in this project.
